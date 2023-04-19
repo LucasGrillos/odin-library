@@ -16,7 +16,7 @@ function addBookToLibrary(book) {
 }
 
 function renderBookCard() {
-
+    
 }
 
 window.addEventListener("load", (event) => {
