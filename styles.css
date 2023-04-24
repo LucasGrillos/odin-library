@@ -1,5 +1,5 @@
 :root {
-    --off-white: #FFFDD0;
+    --slate-grey: #d3d3d3;
     --read-color: #2ECC40;
     --not-read-color: #3D9970;
     --delete-color: #FF4136;
@@ -23,14 +23,15 @@ body {
     margin: 0;
     width: 100vw;
     height: 100vh;
-    background-color: var(--off-white);
+    background-color: var(--slate-grey);
 }
 
 .library {
-    width: 70%;
+    width: 60%;
     display: grid;
+    margin: 1em;
     gap: 1em;
-    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr))
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr))
 }
 
 .card {
@@ -58,12 +59,8 @@ body {
 
 .book-title {
     grid-row: 1 / 2;
-}
-
-.book-title > h2 {
     font-size: 28px;
-    margin: 0;
-    padding: 0;
+    font-weight: bold;
 }
 
 .author {
@@ -71,7 +68,7 @@ body {
     font-size: 13px;
 }
 
-.author > .author-bold {
+.author > span {
     font-weight: bold;
 }
 
@@ -95,10 +92,14 @@ body {
 }
 
 .read-button {
+    
+}
+
+.read {
     background-color: var(--read-color);
 }
 
-.not-read {
+.unread {
     background-color: var(--not-read-color);
 }
 
