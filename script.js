@@ -12,60 +12,99 @@ Book.prototype.info = function() {
 }
 
 function addBookToLibrary(book) {
+    console.log("addBookToLibrary")
     myLibrary.push(book);
 }
 
-function renderLibrary() {
+function clearLibrary() {
+    console.log("clearLibrary!")
     let libraryDiv = document.querySelector(".library");
+    if (libraryDiv.firstChild) {
+        while(libraryDiv.firstChild) {
+            libraryDiv.firstChild.remove()
+        }
+    }
+}
+
+function renderBook(book) {
+    let libraryDiv = document.querySelector(".library");
+    let card = document.createElement("div")
+    card.className = "card";
+    
+    let bookInfo = document.createElement("div");
+    bookInfo.className = "book-information"
+    card.appendChild(bookInfo);
+    
+    let bookTitle = document.createElement("div");
+    bookTitle.className = "book-title";
+    bookTitle.textContent = `${book.title}`;
+    bookInfo.appendChild(bookTitle);
+
+    let bookAuthor = document.createElement('div');
+    bookAuthor.className = "author";
+    bookAuthor.innerHTML = `by <span>${book.author}</span>`;
+    bookInfo.appendChild(bookAuthor);
+    
+    let bookPages = document.createElement("div");
+    bookPages.className = "page-count";
+    bookPages.textContent = `Pages: ${String(book.pages)}`;
+    bookInfo.appendChild(bookPages);
+
+    let readSection = document.createElement("div");
+    readSection.className = "read-and-delete";
+    card.appendChild(readSection);
+
+    let readButton = document.createElement("button");
+    readButton.className = (book.read == true ? 'read' : 'unread');
+    readButton.textContent = (book.read == true ? 'Read' : 'Unread');
+    readSection.appendChild(readButton);
+    
+    let deleteButton = document.createElement('button');
+    deleteButton.className = "delete-button";
+    deleteButton.textContent = "Delete";
+    readSection.appendChild(deleteButton);
+    
+    libraryDiv.appendChild(card);
+}
+
+function renderLibrary() {
+    clearLibrary();
+    console.log(myLibrary)
+
+    console.log("renderLibrary!")
     myLibrary.forEach(book => {
-        let card = document.createElement("div")
-        card.className = "card";
-        
-        let bookInfo = document.createElement("div");
-        bookInfo.className = "book-information"
-        card.appendChild(bookInfo);
-        
-        let bookTitle = document.createElement("div");
-        bookTitle.className = "book-title";
-        bookTitle.textContent = `${book.title}`;
-        bookInfo.appendChild(bookTitle);
-
-        let bookAuthor = document.createElement('div');
-        bookAuthor.className = "author";
-        bookAuthor.innerHTML = `by <span>${book.author}</span>`;
-        bookInfo.appendChild(bookAuthor);
-        
-        let bookPages = document.createElement("div");
-        bookPages.className = "page-count";
-        bookPages.textContent = `Pages: ${String(book.pages)}`;
-        bookInfo.appendChild(bookPages);
-
-        let readSection = document.createElement("div");
-        readSection.className = "read-and-delete";
-        card.appendChild(readSection);
-
-        let readButton = document.createElement("button");
-        readButton.className = (book.read == true ? 'read' : 'unread');
-        readButton.textContent = (book.read == true ? 'Read' : 'Unread');
-        readSection.appendChild(readButton);
-        
-        let deleteButton = document.createElement('button');
-        deleteButton.className = "delete-button";
-        deleteButton.textContent = "Delete";
-        readSection.appendChild(deleteButton);
-        
-        libraryDiv.appendChild(card);
+        renderBook(book);
     })
+}
+
+function addNewBook() {
+    console.log("addNewBook")
+    let bTitle = document.getElementById("btitle").value;
+    let bAuthor = document.getElementById("bauthor").value;
+    let bPages = document.getElementById("bpages").value;
+    let bRead = document.getElementById("bread").checked;
+
+    let newBook = new Book(bTitle, bAuthor, bPages, bRead);
+    console.log(newBook)
+    addBookToLibrary(newBook);
+    renderLibrary()
 }
 
 window.addEventListener("load", (event) => {
     let book1 = new Book("The Hobbit", "JRR Tolkien", 304, false);
     let book2 = new Book("Fuzzy Planet", "John Scalzi", 368, true);
     let book3 = new Book("Stick and Rudder", "Wolfgang Langewische", 389, false);
+    let book4 = new Book("A Wrinke in Time", "Madeleine L'Engle", 256, true)
     addBookToLibrary(book1);
     addBookToLibrary(book2);
     addBookToLibrary(book3);
+    addBookToLibrary(book4);
 
+    let newBookForm = document.getElementById("add-book-form");
+    newBookForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        
+        addNewBook();
+      });
     renderLibrary()
 });
-  
