@@ -51,18 +51,14 @@ body {
     width: 80%;
 }
 
-.side-form li {
-    margin-top: 20px;
-}
-
 .text-container {
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
 }
 
 
 label {
-    opacity: 60%;
     font-size: 12px;
 }
 
@@ -85,9 +81,11 @@ input[type=number]:focus {
 }
 
 .checkbox-container {
+    margin-top: 40px;
     list-style: none;
     display: flex;
     align-items: center;
+    user-select: none;
 }
 
 .checkbox-container label {
@@ -103,10 +101,24 @@ input[type=number]:focus {
 
 .checkbox-container label::before {
     content: "";
-    width: 24px;
-    height: 24px;
+    width: 1em;
+    height: 1em;
     border-radius: 3px;
-    background-color: ;
+    background-color: var(--form-text-color);
+    margin-right: .5em;
+}
+
+.checkbox-container label:hover::before,
+.checkbox-container input[type=checkbox]:hover + label::before {
+    background-color: var(--slate-grey);
+}
+
+.checkbox-container input[type=checkbox]:checked + label::before {
+    color: #001f3f;
+    content: '\002714';
+    display: flex;
+    justify-content: center;
+    align-items: center ;
 }
 
 ul button {
