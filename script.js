@@ -63,6 +63,11 @@ function createBookElement(book) {
     readButton.textContent = (book.read == true ? 'Read' : 'Unread');
     readSection.appendChild(readButton);
 
+    readButton.addEventListener('click', function() {
+        book.read = !book.read;
+        renderLibrary();
+    });
+
     
     let deleteButton = document.createElement('button');
     deleteButton.className = "delete-button";
