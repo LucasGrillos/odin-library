@@ -1,5 +1,11 @@
 let myLibrary = [];
 
+const newBookForm = document.getElementById("add-book-form");
+newBookForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    addNewBook();
+});
+
 function Book(title, author, pages, read) {
     this.title = title;
     this.author = author;
@@ -12,12 +18,10 @@ Book.prototype.info = function() {
 }
 
 function addBookToLibrary(book) {
-    console.log("addBookToLibrary")
     myLibrary.push(book);
 }
 
 function clearLibrary() {
-    console.log("clearLibrary!")
     let libraryDiv = document.querySelector(".library");
     if (libraryDiv.firstChild) {
         while(libraryDiv.firstChild) {
@@ -26,7 +30,7 @@ function clearLibrary() {
     }
 }
 
-function renderBook(book) {
+function createBookElement(book) {
     let libraryDiv = document.querySelector(".library");
     let card = document.createElement("div")
     card.className = "card";
@@ -58,34 +62,35 @@ function renderBook(book) {
     readButton.className = (book.read == true ? 'read' : 'unread');
     readButton.textContent = (book.read == true ? 'Read' : 'Unread');
     readSection.appendChild(readButton);
+
     
     let deleteButton = document.createElement('button');
     deleteButton.className = "delete-button";
     deleteButton.textContent = "Delete";
     readSection.appendChild(deleteButton);
+
+    deleteButton.addEventListener('click', function() {
+        myLibrary.splice(myLibrary.indexOf(book), 1);
+        renderLibrary();
+    });
     
     libraryDiv.appendChild(card);
 }
 
 function renderLibrary() {
     clearLibrary();
-    console.log(myLibrary)
-
-    console.log("renderLibrary!")
     myLibrary.forEach(book => {
-        renderBook(book);
+        createBookElement(book);
     })
 }
 
 function addNewBook() {
-    console.log("addNewBook")
     let bTitle = document.getElementById("btitle").value;
     let bAuthor = document.getElementById("bauthor").value;
     let bPages = document.getElementById("bpages").value;
     let bRead = document.getElementById("bread").checked;
 
     let newBook = new Book(bTitle, bAuthor, bPages, bRead);
-    console.log(newBook)
     addBookToLibrary(newBook);
     renderLibrary()
 }
@@ -100,11 +105,5 @@ window.addEventListener("load", (event) => {
     addBookToLibrary(book3);
     addBookToLibrary(book4);
 
-    let newBookForm = document.getElementById("add-book-form");
-    newBookForm.addEventListener("submit", (event) => {
-        event.preventDefault();
-        
-        addNewBook();
-      });
     renderLibrary()
 });
