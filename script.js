@@ -1,5 +1,11 @@
 let myLibrary = [];
 
+const LIBRARYDIV = document.querySelector(".library");
+const BOOK_TITLE = document.getElementById("btitle");
+const BOOK_AUTHOR = document.getElementById("bauthor");
+const BOOK_PAGES = document.getElementById("bpages");
+const BOOK_READ = document.getElementById("bread");
+
 const newBookForm = document.getElementById("add-book-form");
 newBookForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -90,10 +96,15 @@ function renderLibrary() {
 }
 
 function addNewBook() {
-    let bTitle = document.getElementById("btitle").value;
-    let bAuthor = document.getElementById("bauthor").value;
-    let bPages = document.getElementById("bpages").value;
-    let bRead = document.getElementById("bread").checked;
+    let bTitle = BOOK_TITLE.value;
+    let bAuthor = BOOK_AUTHOR.value;
+    let bPages = BOOK_PAGES.value;
+    let bRead = BOOK_READ.checked;
+
+    BOOK_TITLE.value = "";
+    BOOK_AUTHOR.value = "";
+    BOOK_PAGES.value = "";
+    BOOK_READ.checked = false;
 
     let newBook = new Book(bTitle, bAuthor, bPages, bRead);
     addBookToLibrary(newBook);

@@ -31,7 +31,7 @@ body {
 
     display: grid;
     grid-template-rows: 1fr;
-    grid-template-columns: minmax(100px, 1fr) minmax(400px, 4fr);
+    grid-template-columns: minmax(300px, 1fr) minmax(400px, 4fr);
     grid-template-areas: 
                 "side-form library";
     column-gap: 2em;
@@ -45,8 +45,36 @@ body {
     color: #E9C1AF;
 }
 
+.side-form header {
+    width: 80%;
+    margin: 1em auto;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.header {
+    margin-left: 10px;
+}
+
+.title {
+    margin: 0;
+    padding: 0;
+    font-size: 40px;
+    letter-spacing: .025em;
+}
+
+.subtitle {
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    opacity: 60%;
+    letter-spacing: .5em;
+
+}
+
 .side-form ul {
-    margin: 0 auto;
+    margin: 2em auto;
     padding: 0;
     width: 80%;
 }
@@ -135,10 +163,10 @@ ul button {
 .library {
     margin-top: 1em;
     grid-area: library;
-    padding-right: 12rem;
+    padding-right: 6rem;
     
     display: grid; 
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 2em;
 
     align-content: start;
